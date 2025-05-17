@@ -1,0 +1,28 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.12.35728.132
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketGateway", "TicketGateway\TicketGateway.csproj", "{374214C2-5443-45F8-8AE3-025805C7BCFF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExternalValidation", "ExternalValidation\ExternalValidation.csproj", "{3CC6DD9E-A741-413D-9C88-C798A51B3CF6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{374214C2-5443-45F8-8AE3-025805C7BCFF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{374214C2-5443-45F8-8AE3-025805C7BCFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{374214C2-5443-45F8-8AE3-025805C7BCFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{374214C2-5443-45F8-8AE3-025805C7BCFF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3CC6DD9E-A741-413D-9C88-C798A51B3CF6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3CC6DD9E-A741-413D-9C88-C798A51B3CF6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3CC6DD9E-A741-413D-9C88-C798A51B3CF6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3CC6DD9E-A741-413D-9C88-C798A51B3CF6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
