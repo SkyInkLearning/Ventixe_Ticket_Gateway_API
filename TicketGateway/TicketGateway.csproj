@@ -12,7 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\" />
+    <ProjectReference Include="..\ExternalValidation\ExternalValidation.csproj" />
   </ItemGroup>
 
 </Project>
