@@ -1,6 +1,6 @@
 ﻿using ExternalValidation.Interfaces;
-using ExternalValidation.Models;
-using ExternalValidation.Pocos;
+using ExternalValidation.Poco;
+using ExternalValidation.ApiSettings;
 using Microsoft.Extensions.Options;
 using System.Text.Json;
 
