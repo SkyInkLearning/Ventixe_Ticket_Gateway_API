@@ -10,6 +10,19 @@ public class GatewayService
 
 
 
+    public async Task<> GetATicket()
+    {
+
+    }
+    public async Task<> GetAllUsersTickets()
+    {
+
+    }
+
+    public async Task<> GetAllUsersTicketsAtEvent()
+    {
+
+    }
 
 
 

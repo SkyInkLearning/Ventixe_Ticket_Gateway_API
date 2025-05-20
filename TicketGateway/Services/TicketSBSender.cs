@@ -1,24 +1,23 @@
 ﻿using Azure.Messaging.ServiceBus;
+using Microsoft.Extensions.Options;
 using System.Text.Json;
 using TicketGateway.Models;
 
 namespace TicketGateway.Services;
 
-public class TicketSBSender
+public class TicketSBSender : IAsyncDisposable
 {
     // Service which will send POST/PUT/DELETE to the service bus.
     // Created with alot of help from chatgpt.
 
-    private readonly string _connectionString = "<>";
-    private readonly string _queueName = "<>";
-
     private readonly ServiceBusClient _client;
     private readonly ServiceBusSender _sender;
 
-    public TicketSBSender()
+    public TicketSBSender(IOptions<AzureServiceBusSettings> settings)
     {
-        _client = new ServiceBusClient(_connectionString);
-        _sender = _client.CreateSender(_queueName);
+        var config = settings.Value;
+        _client = new ServiceBusClient(config.ConnectionString);
+        _sender = _client.CreateSender(config.QueueName);
     }
 
     public async Task<bool> SendCreateAsync(CreateTicketForm createTicketForm)
@@ -33,7 +32,6 @@ public class TicketSBSender
     {
         return await SendMessageAsync("DeleteTicket", deleteKey);
     }
-
 
     private async Task<bool> SendMessageAsync(string type, object payload)
     {
