@@ -1,8 +1,9 @@
+using ExternalValidation.ApiSettings;
 using ExternalValidation.Interfaces;
-using ExternalValidation.Pocos;
 using ExternalValidation.Services;
 using TicketGateway.Models;
 using TicketGateway.Services;
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,14 +12,13 @@ builder.Services.Configure<AzureServiceBusSettings>(builder.Configuration.GetSec
 builder.Services.Configure<EventApiSettings>(builder.Configuration.GetSection("EventApi"));
 builder.Services.Configure<UserApiSettings>(builder.Configuration.GetSection("UserApi"));
 builder.Services.Configure<InvoiceApiSettings>(builder.Configuration.GetSection("InvoiceApi"));
+builder.Services.Configure<TicketServiceApiSettings>(builder.Configuration.GetSection("TicketServiceApi"));
 
 builder.Services.AddSingleton<TicketSBSender>();
 
 builder.Services.AddHttpClient<IExternalEventCheck, ExternalEventCheck>();
 builder.Services.AddHttpClient<IExternalInvoiceCheck, ExternalInvoiceCheck>();
 builder.Services.AddHttpClient<IExternalUserCheck, ExternalUserCheck>();
-
-
 
 
 builder.Services.AddControllers();

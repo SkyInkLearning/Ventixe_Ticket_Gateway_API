@@ -1,4 +1,4 @@
-﻿using ExternalValidation.Models;
+﻿using ExternalValidation.Poco;
 
 namespace ExternalValidation.Interfaces
 {

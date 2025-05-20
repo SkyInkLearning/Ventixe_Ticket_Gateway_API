@@ -8,14 +8,14 @@ namespace TicketGateway.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
-public class TicketGatewayController(TicketSBSender sender, ExternalEventCheck eventCheck, ExternalUserCheck userCheck, ExternalInvoiceCheck invoiceCheck) : ControllerBase
+public class TicketGatewayController(TicketSBSender sender, ExternalEventCheck eventCheck, ExternalUserCheck userCheck, ExternalInvoiceCheck invoiceCheck, HttpClient httpClient) : ControllerBase
 {
     private readonly TicketSBSender _sender = sender;
 
     private readonly ExternalEventCheck _eventCheck = eventCheck;
     private readonly ExternalUserCheck _userCheck = userCheck;
     private readonly ExternalInvoiceCheck _invoiceCheck = invoiceCheck;
-
+    private readonly HttpClient _httpClient = httpClient;
 
     //POST
     [HttpPost]
@@ -88,9 +88,14 @@ public class TicketGatewayController(TicketSBSender sender, ExternalEventCheck e
     [HttpGet("user/{userId}")]
     public async Task<IActionResult> GetAllUsersTickets(string userId)
     {
-        // Need to create a HTTP request thingy to the other api.
+        var userCheckResult = await _userCheck.UserExistanceCheck(userId);
+        if (!userCheckResult.Success) return BadRequest("No user with this id exists.");
 
-        
+        var response = await _httpClient.GetAsync($"{}/user/{userId}");
+        if (!response.IsSuccessStatuscode)
+            return StatusCode((int)response.StatusCode, await response.Content.ReadAsStringAsync());
+
+        var tickets = await response.Content.ReadFromJsonAsync<List<Ticket>>();
         return Ok(tickets);
     }
 
@@ -98,7 +103,19 @@ public class TicketGatewayController(TicketSBSender sender, ExternalEventCheck e
     [HttpGet("user/{userId}/event/{eventId}")]
     public async Task<IActionResult> GetAllUsersTicketsAtEvent(string userId, string eventId)
     {
+        // External checks:
+        var eventCheckResult = await _eventCheck.EventExistanceCheck(eventId);
+        if (!eventCheckResult.Success) return BadRequest("No event with this id exists.");
 
+        var userCheckResult = await _userCheck.UserExistanceCheck(userId);
+        if (!userCheckResult.Success) return BadRequest("No user with this id exists.");
+
+        // GET to ticketservice:
+        var response = await _httpClient.GetAsync($"{}/user/{userId}/event/{eventId}");
+        if (!response.IsSuccessStatuscode)
+            return StatusCode((int)response.StatusCode, await response.Content.ReadAsStringAsync());
+
+        var tickets = await response.Content.ReadFromJsonAsync<List<Ticket>>();
 
         return Ok(tickets);
     }
@@ -107,7 +124,19 @@ public class TicketGatewayController(TicketSBSender sender, ExternalEventCheck e
     [HttpGet("user/{userId}/event/{eventId}/seat/{seatNumber}")]
     public async Task<IActionResult> GetATicket(string userId, string eventId, string seatNumber)
     {
+        // External checks:
+        var eventCheckResult = await _eventCheck.EventExistanceCheck(eventId);
+        if (!eventCheckResult.Success) return BadRequest("No event with this id exists.");
 
+        var userCheckResult = await _userCheck.UserExistanceCheck(userId);
+        if (!userCheckResult.Success) return BadRequest("No user with this id exists.");
+
+        // GET to ticketservice:
+        var response = await _httpClient.GetAsync($"{}/user/{userId}/event/{eventId}/seat/{seatNumber}");
+        if (!response.IsSuccessStatuscode)
+            return StatusCode((int)response.StatusCode, await response.Content.ReadAsStringAsync());
+
+        var ticket = await response.Content.ReadFromJsonAsync<Ticket>();
 
         return Ok(ticket);
     }

@@ -1,4 +1,4 @@
-﻿namespace ExternalValidation.Pocos;
+﻿namespace ExternalValidation.ApiSettings;
 
 public class InvoiceApiSettings
 {

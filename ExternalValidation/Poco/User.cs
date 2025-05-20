@@ -1,4 +1,4 @@
-﻿namespace ExternalValidation.Models;
+﻿namespace ExternalValidation.Poco;
 
 public class User
 {
