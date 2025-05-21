@@ -1,6 +1,5 @@
 ﻿namespace ExternalValidation.ApiSettings;
 
-public class InvoiceApiSettings
+public class InvoiceApiSettings : BaseSettings
 {
-    public string Url { get; set; } = null!;
 }
