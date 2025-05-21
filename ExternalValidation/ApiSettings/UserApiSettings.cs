@@ -1,6 +1,5 @@
 ﻿namespace ExternalValidation.ApiSettings;
 
-public class UserApiSettings
+public class UserApiSettings : BaseSettings
 {
-    public string Url { get; set; } = null!;
 }

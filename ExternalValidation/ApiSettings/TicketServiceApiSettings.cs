@@ -1,6 +1,5 @@
 ﻿namespace ExternalValidation.ApiSettings;
 
-public class TicketServiceApiSettings
+public class TicketServiceApiSettings : BaseSettings
 {
-    public string Url { get; set; } = null!;
 }
