@@ -108,6 +108,22 @@ public class TicketGatewayController(TicketSBSender sender, ExternalEventCheck e
         return Ok(tickets);
     }
 
+    // Getting all the tickets for an event.
+    [HttpGet("event/{eventId}")]
+    public async Task<IActionResult> GetAllEventTickets(string eventId)
+    {
+        // External checks:
+        var eventCheckResult = await _eventCheck.EventExistanceCheck(eventId);
+        if (!eventCheckResult.Success) return BadRequest("No event with this id exists.");
+
+        var response = await _httpClient.GetAsync($"{_ticketServiceUrl}/event/{eventId}");
+        if (!response.IsSuccessStatusCode)
+            return StatusCode((int)response.StatusCode, await response.Content.ReadAsStringAsync());
+
+        var tickets = await response.Content.ReadFromJsonAsync<List<Ticket>>();
+        return Ok(tickets);
+    }
+
     // Getting all the tickets of the user from that event.
     [HttpGet("user/{userId}/event/{eventId}")]
     public async Task<IActionResult> GetAllUsersTicketsAtEvent(string userId, string eventId)
