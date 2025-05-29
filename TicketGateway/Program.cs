@@ -20,7 +20,6 @@ builder.Services.AddHttpClient<IExternalEventCheck, ExternalEventCheck>();
 builder.Services.AddHttpClient<IExternalInvoiceCheck, ExternalInvoiceCheck>();
 builder.Services.AddHttpClient<IExternalUserCheck, ExternalUserCheck>();
 
-
 builder.Services.AddControllers();
 builder.Services.AddOpenApi();
 

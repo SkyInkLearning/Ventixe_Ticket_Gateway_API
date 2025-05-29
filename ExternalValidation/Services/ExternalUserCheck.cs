@@ -10,6 +10,7 @@ public class ExternalUserCheck : IExternalUserCheck
 {
     // Major changes maybe needed seeing as this might be a gRPC that I need to contact.
     // Awaiting documentation before making a bunch of changes.
+    // No way to contact backends to validate this. Was told it was being changed to REST, but no GET exists right now.
 
 
     private readonly HttpClient _httpClient;
