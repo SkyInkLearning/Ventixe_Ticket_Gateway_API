@@ -3,11 +3,13 @@ using ExternalValidation.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Options;
+using TicketGateway.Extensions.Attributes;
 using TicketGateway.Models;
 using TicketGateway.Services;
 
 namespace TicketGateway.Controllers;
 
+[UseApiKey]
 [Route("api/[controller]")]
 [ApiController]
 public class TicketGatewayController(TicketSBSender sender, ExternalEventCheck eventCheck, ExternalUserCheck userCheck, ExternalInvoiceCheck invoiceCheck, HttpClient httpClient, IOptions<TicketServiceApiSettings> ticketServiceSettings) : ControllerBase
@@ -21,8 +23,6 @@ public class TicketGatewayController(TicketSBSender sender, ExternalEventCheck e
     private readonly string _ticketServiceUrl = ticketServiceSettings.Value.Url;
 
 
-
-
     //POST
     [HttpPost]
     public async Task<IActionResult> CreateTicket(CreateTicketForm createForm)
@@ -34,11 +34,11 @@ public class TicketGatewayController(TicketSBSender sender, ExternalEventCheck e
         var eventCheckResult = await _eventCheck.EventExistanceCheck(createForm.EventId);
         if (!eventCheckResult.Success) return BadRequest("No event with this id exists.");
 
-        var userCheckResult = await _userCheck.UserExistanceCheck(createForm.UserId);
-        if (!userCheckResult.Success) return BadRequest("No user with this id exists.");
+        //var userCheckResult = await _userCheck.UserExistanceCheck(createForm.UserId);
+        //if (!userCheckResult.Success) return BadRequest("No user with this id exists.");
 
-        var invoiceCheckResult = await _invoiceCheck.InvoiceExistanceCheck(createForm.InvoiceId);
-        if (!invoiceCheckResult.Success) return BadRequest("No invoice with this id exists.");
+        //var invoiceCheckResult = await _invoiceCheck.InvoiceExistanceCheck(createForm.InvoiceId);
+        //if (!invoiceCheckResult.Success) return BadRequest("No invoice with this id exists.");
 
         var resultOfSender = await _sender.SendCreateAsync(createForm);
         if (!resultOfSender) { return BadRequest("Could not send the ticketcreation request."); }
@@ -56,11 +56,11 @@ public class TicketGatewayController(TicketSBSender sender, ExternalEventCheck e
         var eventCheckResult = await _eventCheck.EventExistanceCheck(updateForm.EventId);
         if (!eventCheckResult.Success) return BadRequest("No event with this id exists.");
 
-        var userCheckResult = await _userCheck.UserExistanceCheck(updateForm.UserId);
-        if (!userCheckResult.Success) return BadRequest("No user with this id exists.");
+        //var userCheckResult = await _userCheck.UserExistanceCheck(updateForm.UserId);
+        //if (!userCheckResult.Success) return BadRequest("No user with this id exists.");
 
-        var invoiceCheckResult = await _invoiceCheck.InvoiceExistanceCheck(updateForm.InvoiceId);
-        if (!invoiceCheckResult.Success) return BadRequest("No invoice with this id exists.");
+        //var invoiceCheckResult = await _invoiceCheck.InvoiceExistanceCheck(updateForm.InvoiceId);
+        //if (!invoiceCheckResult.Success) return BadRequest("No invoice with this id exists.");
 
 
         var result = await _sender.SendUpdateAsync(updateForm);
@@ -79,8 +79,8 @@ public class TicketGatewayController(TicketSBSender sender, ExternalEventCheck e
         var eventCheckResult = await _eventCheck.EventExistanceCheck(key.EventId);
         if (!eventCheckResult.Success) return BadRequest("No event with this id exists.");
 
-        var userCheckResult = await _userCheck.UserExistanceCheck(key.UserId);
-        if (!userCheckResult.Success) return BadRequest("No user with this id exists.");
+        //var userCheckResult = await _userCheck.UserExistanceCheck(key.UserId);
+        //if (!userCheckResult.Success) return BadRequest("No user with this id exists.");
 
         var result = await _sender.SendDeleteAsync(key);
         if (!result) { return BadRequest("Could not send the ticketdeletion request."); }
@@ -97,8 +97,8 @@ public class TicketGatewayController(TicketSBSender sender, ExternalEventCheck e
     [HttpGet("user/{userId}")]
     public async Task<IActionResult> GetAllUsersTickets(string userId)
     {
-        var userCheckResult = await _userCheck.UserExistanceCheck(userId);
-        if (!userCheckResult.Success) return BadRequest("No user with this id exists.");
+        //var userCheckResult = await _userCheck.UserExistanceCheck(userId);
+        //if (!userCheckResult.Success) return BadRequest("No user with this id exists.");
 
         var response = await _httpClient.GetAsync($"{_ticketServiceUrl}/user/{userId}");
         if (!response.IsSuccessStatusCode)
@@ -132,8 +132,8 @@ public class TicketGatewayController(TicketSBSender sender, ExternalEventCheck e
         var eventCheckResult = await _eventCheck.EventExistanceCheck(eventId);
         if (!eventCheckResult.Success) return BadRequest("No event with this id exists.");
 
-        var userCheckResult = await _userCheck.UserExistanceCheck(userId);
-        if (!userCheckResult.Success) return BadRequest("No user with this id exists.");
+        //var userCheckResult = await _userCheck.UserExistanceCheck(userId);
+        //if (!userCheckResult.Success) return BadRequest("No user with this id exists.");
 
         // GET to ticketservice:
         var response = await _httpClient.GetAsync($"{_ticketServiceUrl}/user/{userId}/event/{eventId}");
@@ -153,8 +153,8 @@ public class TicketGatewayController(TicketSBSender sender, ExternalEventCheck e
         var eventCheckResult = await _eventCheck.EventExistanceCheck(eventId);
         if (!eventCheckResult.Success) return BadRequest("No event with this id exists.");
 
-        var userCheckResult = await _userCheck.UserExistanceCheck(userId);
-        if (!userCheckResult.Success) return BadRequest("No user with this id exists.");
+        //var userCheckResult = await _userCheck.UserExistanceCheck(userId);
+        //if (!userCheckResult.Success) return BadRequest("No user with this id exists.");
 
         // GET to ticketservice:
         var response = await _httpClient.GetAsync($"{_ticketServiceUrl}/user/{userId}/event/{eventId}/seat/{seatNumber}");
