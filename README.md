@@ -1,7 +1,5 @@
 # TicketGatewayAPI
 
-Made by https://github.com/SimonR-prog
-
 # Postman:
 
 ## Authentication:
@@ -39,4 +37,15 @@ Invalid requests will be met with:
 
 ```
 
+# Sequence diagram plantuml
+
+<img src="https://github.com/user-attachments/assets/7e53239a-6069-4711-956e-a50d07885ad2" width="400">
+
 # Usage in the frontend:
+
+Coming soon..
+
+### Created By:
+
+https://github.com/SimonR-prog
+
