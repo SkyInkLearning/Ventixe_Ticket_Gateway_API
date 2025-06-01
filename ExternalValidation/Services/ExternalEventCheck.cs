@@ -11,7 +11,7 @@ public class ExternalEventCheck : IExternalEventCheck
     private readonly HttpClient _httpClient;
     private readonly string _eventApiUrl;
 
-    // My validation services are made with the help of chatgpt. 
+    // My validation services are made with the help of chatgpt.
 
     public ExternalEventCheck(HttpClient httpClient, IOptions<EventApiSettings> options)
     {
