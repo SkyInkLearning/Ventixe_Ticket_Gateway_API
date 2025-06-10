@@ -1,4 +1,4 @@
-# TicketGatewayAPI
+# Ticket Gateway API:
 
 ## Purpose and thinking:
 
